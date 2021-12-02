@@ -17,14 +17,13 @@ public class Day2 {
         ArrayList<String> input = InputLoader.toStringList("input/day2.txt");
 
         for(String s : input) {
-            if (s.contains("forward")) {
-                int val = Integer.parseInt(s.substring(8));
+            String[] entry = s.split(" ");
+            int val = Integer.parseInt(entry[1]);
+            if (entry[0].equals("forward")) {
                 posX += val;
-            } else if (s.contains("down")) {
-                int val = Integer.parseInt(s.substring(5));
+            } else if (entry[0].equals("down")) {
                 posY += val;
-            } else if (s.contains("up")) {
-                int val = Integer.parseInt(s.substring(3));
+            } else if (entry[0].equals("up")) {
                 posY -= val;
             }
         }
@@ -35,18 +34,18 @@ public class Day2 {
         posY = 0;
 
         for(String s : input) {
-            if (s.contains("forward")) {
-                int val = Integer.parseInt(s.substring(8));
+            String[] entry = s.split(" ");
+            int val = Integer.parseInt(entry[1]);
+            if (entry[0].equals("forward")) {
                 posX += val;
                 posY += aim*val;
-            } else if (s.contains("down")) {
-                int val = Integer.parseInt(s.substring(5));
+            } else if (entry[0].equals("down")) {
                 aim += val;
-            } else if (s.contains("up")) {
-                int val = Integer.parseInt(s.substring(3));
+            } else if (entry[0].equals("up")) {
                 aim -= val;
             }
         }
+        
         System.out.println("second answer: " + posX*posY);
     }
 }
