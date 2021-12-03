@@ -39,6 +39,22 @@ public class InputLoader {
         return output;
     }
 
+    public static ArrayList<Integer> toIntegerList(String filepath, int radix) {
+        ArrayList<Integer> output = new ArrayList<>();
+        File file = new File(filepath);
+        try {
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                output.add(Integer.parseInt(scanner.nextLine(), radix));
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+
+        return output;
+    }
+
     public static String asString(String filepath, String delimiter) {
         String output = "";
         File file = new File(filepath);

@@ -45,7 +45,7 @@ public class Day2 {
                 aim -= val;
             }
         }
-        
+
         System.out.println("second answer: " + posX*posY);
     }
 }
