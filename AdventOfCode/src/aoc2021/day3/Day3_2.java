@@ -62,7 +62,7 @@ public class Day3_2 {
                     ones ++;
                 }
             }
-            
+
             if (zeroes > ones) {
                 ArrayList<String> temp = new ArrayList<>();
                 for (String s : co2) {
