@@ -24,19 +24,7 @@ public class InputLoader {
     }
 
     public static ArrayList<Integer> toIntegerList(String filepath) {
-        ArrayList<Integer> output = new ArrayList<>();
-        File file = new File(filepath);
-        try {
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()) {
-                output.add(Integer.parseInt(scanner.nextLine()));
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            System.out.println(e.getMessage());
-        }
-
-        return output;
+        return toIntegerList(filepath, 10);
     }
 
     public static ArrayList<Integer> toIntegerList(String filepath, int radix) {
