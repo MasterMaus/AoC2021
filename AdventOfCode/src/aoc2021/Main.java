@@ -9,7 +9,7 @@ import aoc2021.day5.Day5;
 import aoc2021.day6.Day6;
 import aoc2021.day7.Day7;
 import aoc2021.day8.Day8;
-//import aoc2021.day9.Day9;
+import aoc2021.day9.Day9;
 //import aoc2021.day10.Day10;
 //import aoc2021.day11.Day11;
 //import aoc2021.day12.Day12;
@@ -59,7 +59,7 @@ public class Main {
 //        System.out.println("solution has been solved in " + (System.currentTimeMillis() - start) + "ms \n");
 //
 //        start = System.currentTimeMillis();
-        Day8.run(); //run day8
+        Day9.run(); //run day8
 //        System.out.println("solution has been solved in " + (System.currentTimeMillis() - start) + "ms \n");
 //
 //        start = System.currentTimeMillis();
