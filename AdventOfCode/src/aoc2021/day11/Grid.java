@@ -29,6 +29,10 @@ public class Grid {
         return length;
     }
 
+    public int getSize() {
+        return grid.length;
+    }
+
     public int pointToId(int x, int y) {
         if(x < 0 || y < 0 || x >= length || y >= height) {
             return -1;

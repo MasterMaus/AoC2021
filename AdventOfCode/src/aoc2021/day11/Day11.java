@@ -10,13 +10,14 @@ public class Day11 {
         int res1 = 0;
         int res2 = 0;
 
-        Grid octopussies = new Grid(10, 10);  //todo hardcoded oops
+
 
         System.out.println("Solutions day 11:");
-
-        //ArrayList<Integer> input = InputLoader.toIntegerList("input/day11.txt");
+        
         ArrayList<String> input = InputLoader.toStringList("input/day11.txt");
-
+        int height = input.size();
+        int length = input.get(0).length();
+        Grid octopussies = new Grid(length, height);
         //fill octopussies grid
 
         for (int y = 0; y<input.size(); y++) {
@@ -51,7 +52,7 @@ public class Day11 {
 
         //step 2: Increase all neighbors by 1 if they did not flash already. Set all number 9 to 0 to indicate that they flashed
         while (res.contains(10)) {
-            for (int id = 0; id < 100; id++) { // todo hardcoded id limit?!
+            for (int id = 0; id < res.getSize(); id++) { // todo hardcoded id limit?!
                 if (res.get(id) == 10) {
                     res.set(id, 0);
                     ArrayList<Integer> toIncrement = res.getNeighbors(id);
