@@ -1,7 +1,7 @@
 package aoc2021;
 
 import aoc2021.day10.Day10;
-//import aoc2021.day11.Day11;
+import aoc2021.day11.Day11;
 //import aoc2021.day12.Day12;
 //import aoc2021.day13.Day13;
 //import aoc2021.day14.Day14;
@@ -54,11 +54,11 @@ public class Main {
 //
 //
 //        start = System.currentTimeMillis();
-        Day10.run(); //run day10
+//        Day10.run(); //run day10
 //        System.out.println("solution has been solved in " + (System.currentTimeMillis() - start) + "ms \n");
 //
 //        start = System.currentTimeMillis();
-//        Day11.run(); //run day11
+        Day11.run(); //run day11
 //        System.out.println("solution has been solved in " + (System.currentTimeMillis() - start) + "ms \n");
 //
 //        start = System.currentTimeMillis();
