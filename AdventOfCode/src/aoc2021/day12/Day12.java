@@ -53,14 +53,23 @@ public class Day12 {
                 break;
             }
         }
-        HashSet<ArrayDeque<Cave>> possiblePaths = findPaths(start, end, null);
+        HashSet<ArrayDeque<Cave>> possiblePaths = findPathsv2(start, end, null, null);
+        HashSet<ArrayDeque<Cave>> possiblePathsV2 = new HashSet<>();
+        for (Cave c : nodes.keySet()) {
+            if(!c.equals(start) && !c.equals(end)) {
+                possiblePathsV2.addAll(findPathsv2(start, end, null, c)); //TODO: find fix. I found out that the ArrayDeque is does not have an equals method. Therefore, addAll adds duplicates
+            }
+        }
 
-//        for (ArrayDeque<Cave> path : possiblePaths) {
+//        for (ArrayDeque<Cave> path : possiblePathsV2) {
 //            System.out.println(path);
 //        }
 
+        System.out.println(nodes.size());
+
+        int duplicates = nodes.size() - 3; //start and end node do not count towards "exceptions". We have to keep 1 of the duplicates
         System.out.println("part 1: " + possiblePaths.size());
-        System.out.println("part 2: " + (res2));
+        System.out.println("part 2: " + (possiblePathsV2.size() - (possiblePaths.size()*duplicates)));
     }
 
     private static HashSet<ArrayDeque<Cave>> findPaths(Cave currentCave, Cave endCave, HashSet<Cave> visited) {
@@ -87,6 +96,42 @@ public class Day12 {
                 result.add(path); // Add this path to the result set
             } else if (!visited.contains(c)){ //If cave has not been visited (or cave is big) find all paths to end
                 result.addAll(findPaths(c, endCave, visited));
+            }
+        }
+
+        for (ArrayDeque<Cave> path : result) {
+            path.addFirst(currentCave);
+        }
+
+        return result;
+    }
+
+    private static HashSet<ArrayDeque<Cave>> findPathsv2(Cave currentCave, Cave endCave, ArrayList<Cave> visited, Cave exception) {
+        //System.out.println("Currently exploring cave: " + currentCave.getID());
+
+        if (visited == null) { //This is the very first time that findPaths is called. Need to create a new visited set
+            visited = new ArrayList<>();
+        } else {
+            visited = new ArrayList<>(visited); //The function becomes recursive, only the nodes below this method need to know a place is visited. the method calls from up may still go there
+        }
+
+        if(!currentCave.isBig()) { // You may always go back to big caves
+            visited.add(currentCave);
+        }
+
+        HashSet<ArrayDeque<Cave>> result = new HashSet<>();
+        HashSet<Cave> edges = currentCave.getEdges();
+
+        for (Cave c : edges) {
+            if (c.equals(endCave)) {
+                ArrayDeque<Cave> path = new ArrayDeque<>(); // Create a new path
+                path.add(c); //Path ends at the endCave
+
+                result.add(path); // Add this path to the result set
+            } else if (!visited.contains(c)){ //If cave has not been visited (or cave is big) find all paths to end
+                result.addAll(findPathsv2(c, endCave, visited, exception));
+            } else if (c.equals(exception)) { //Cave has been visited, but if cave is exception, it may go again. Cave is removed from being exception
+                result.addAll(findPathsv2(c,endCave,visited,null));
             }
         }
 
