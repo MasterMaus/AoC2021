@@ -15,24 +15,23 @@ public class Day12 {
 
         System.out.println("Solutions day 12:");
 
-        //ArrayList<Integer> input = InputLoader.toIntegerList("input/dayX.txt");
         ArrayList<String> input = InputLoader.toStringList("input/day12.txt");
 
-        HashMap<Cave,Cave> nodes = new HashMap<>();
+        ArrayList<Cave> nodes = new ArrayList<>();
 
         for (String line : input) {
             String[] path = line.split("-");
             Cave c1 = new Cave(path[0]);
             Cave c2 = new Cave(path[1]);
-            if(nodes.containsKey(c1)) {
-                c1 = nodes.get(c1);
+            if(nodes.contains(c1)) {
+                c1 = nodes.get(nodes.indexOf(c1));
             } else {
-                nodes.put(c1, c1);
+                nodes.add(c1);
             }
-            if(nodes.containsKey(c2)) {
-                c2 = nodes.get(c2);
+            if(nodes.contains(c2)) {
+                c2 = nodes.get(nodes.indexOf(c2));
             } else {
-                nodes.put(c2, c2);
+                nodes.add(c2);
             }
 
             c1.addEdge(c2);
@@ -43,7 +42,7 @@ public class Day12 {
         Cave end = null;
 
         //Find the start and end nodes
-        for (Cave c : nodes.keySet()) {
+        for (Cave c : nodes) {
             if (c.getID().equals("start")) {
                 start = c;
             } else if (c.getID().equals("end")) {
@@ -55,7 +54,7 @@ public class Day12 {
         }
         HashSet<ArrayDeque<Cave>> possiblePaths = findPathsv2(start, end, null, null);
         HashSet<ArrayDeque<Cave>> possiblePathsV2 = new HashSet<>();
-        for (Cave c : nodes.keySet()) {
+        for (Cave c : nodes) {
             if(!c.equals(start) && !c.equals(end)) {
                 possiblePathsV2.addAll(findPathsv2(start, end, null, c)); //TODO: find fix. I found out that the ArrayDeque is does not have an equals method. Therefore, addAll adds duplicates
             }

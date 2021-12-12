@@ -30,7 +30,7 @@ import aoc2021.day12.Day12;
 public class Main {
 
     public static void main(String[] args) {
-//        long start = System.currentTimeMillis();
+        long start = System.currentTimeMillis();
 //        Day1.run(); //run day1
 //        System.out.println("solution has been solved in " + (System.currentTimeMillis() - start) + "ms \n");
 //
@@ -74,7 +74,7 @@ public class Main {
 //
 //        start = System.currentTimeMillis();
         Day12.run(); //run day12
-//        System.out.println("solution has been solved in " + (System.currentTimeMillis() - start) + "ms \n");
+        System.out.println("solution has been solved in " + (System.currentTimeMillis() - start) + "ms \n");
 //
 //        start = System.currentTimeMillis();
 //        Day13.run(); //run day13
