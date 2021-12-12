@@ -1,4 +1,4 @@
-package aoc2021.day11;
+package aoc2021.utilities;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,7 +29,7 @@ public class Grid {
         return length;
     }
 
-    public int getSize() {
+    public int size() {
         return grid.length;
     }
 

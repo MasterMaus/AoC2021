@@ -1,5 +1,6 @@
 package aoc2021.day11;
 
+import aoc2021.utilities.Grid;
 import aoc2021.utilities.InputLoader;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class Day11 {
 
 
         System.out.println("Solutions day 11:");
-        
+
         ArrayList<String> input = InputLoader.toStringList("input/day11.txt");
         int height = input.size();
         int length = input.get(0).length();
@@ -52,7 +53,7 @@ public class Day11 {
 
         //step 2: Increase all neighbors by 1 if they did not flash already. Set all number 9 to 0 to indicate that they flashed
         while (res.contains(10)) {
-            for (int id = 0; id < res.getSize(); id++) { // todo hardcoded id limit?!
+            for (int id = 0; id < res.size(); id++) { // todo hardcoded id limit?!
                 if (res.get(id) == 10) {
                     res.set(id, 0);
                     ArrayList<Integer> toIncrement = res.getNeighbors(id);
