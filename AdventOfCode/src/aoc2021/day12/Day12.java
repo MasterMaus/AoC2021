@@ -52,24 +52,26 @@ public class Day12 {
                 break;
             }
         }
-        HashSet<ArrayList<Cave>> possiblePaths = findPaths(start, end, null);
-        HashSet<ArrayList<Cave>> possiblePathsV2 = new HashSet<>();
+        HashSet<ArrayDeque<Cave>> possiblePaths = findPathsv2(start, end, null, null);
+        HashSet<ArrayDeque<Cave>> possiblePathsV2 = new HashSet<>();
         for (Cave c : nodes) {
             if(!c.equals(start) && !c.equals(end)) {
-                possiblePathsV2.addAll(findPathsv2(start, end, null, c));
+                possiblePathsV2.addAll(findPathsv2(start, end, null, c)); //TODO: find fix. I found out that the ArrayDeque is does not have an equals method. Therefore, addAll adds duplicates
             }
         }
 
-//        for (ArrayList<Cave> path: possiblePaths) {
+//        for (ArrayDeque<Cave> path : possiblePathsV2) {
 //            System.out.println(path);
 //        }
 
+        System.out.println(nodes.size());
 
+        int duplicates = nodes.size() - 3; //start and end node do not count towards "exceptions". We have to keep 1 of the duplicates
         System.out.println("part 1: " + possiblePaths.size());
-        System.out.println("part 2: " + possiblePathsV2.size());
+        System.out.println("part 2: " + (possiblePathsV2.size() - (possiblePaths.size()*duplicates)));
     }
 
-    private static HashSet<ArrayList<Cave>> findPaths(Cave currentCave, Cave endCave, HashSet<Cave> visited) {
+    private static HashSet<ArrayDeque<Cave>> findPaths(Cave currentCave, Cave endCave, HashSet<Cave> visited) {
         //System.out.println("Currently exploring cave: " + currentCave.getID());
 
         if (visited == null) { //This is the very first time that findPaths is called. Need to create a new visited set
@@ -82,12 +84,12 @@ public class Day12 {
             visited.add(currentCave);
         }
 
-        HashSet<ArrayList<Cave>> result = new HashSet<>();
+        HashSet<ArrayDeque<Cave>> result = new HashSet<>();
         HashSet<Cave> edges = currentCave.getEdges();
 
         for (Cave c : edges) {
             if (c.equals(endCave)) {
-                ArrayList<Cave> path = new ArrayList<>(); // Create a new path
+                ArrayDeque<Cave> path = new ArrayDeque<>(); // Create a new path
                 path.add(c); //Path ends at the endCave
 
                 result.add(path); // Add this path to the result set
@@ -96,14 +98,14 @@ public class Day12 {
             }
         }
 
-        for (ArrayList<Cave> path : result) {
-            path.add(currentCave);
+        for (ArrayDeque<Cave> path : result) {
+            path.addFirst(currentCave);
         }
 
         return result;
     }
 
-    private static HashSet<ArrayList<Cave>> findPathsv2(Cave currentCave, Cave endCave, ArrayList<Cave> visited, Cave exception) {
+    private static HashSet<ArrayDeque<Cave>> findPathsv2(Cave currentCave, Cave endCave, ArrayList<Cave> visited, Cave exception) {
         //System.out.println("Currently exploring cave: " + currentCave.getID());
 
         if (visited == null) { //This is the very first time that findPaths is called. Need to create a new visited set
@@ -116,12 +118,12 @@ public class Day12 {
             visited.add(currentCave);
         }
 
-        HashSet<ArrayList<Cave>> result = new HashSet<>();
+        HashSet<ArrayDeque<Cave>> result = new HashSet<>();
         HashSet<Cave> edges = currentCave.getEdges();
 
         for (Cave c : edges) {
             if (c.equals(endCave)) {
-                ArrayList<Cave> path = new ArrayList<>(); // Create a new path
+                ArrayDeque<Cave> path = new ArrayDeque<>(); // Create a new path
                 path.add(c); //Path ends at the endCave
 
                 result.add(path); // Add this path to the result set
@@ -132,8 +134,8 @@ public class Day12 {
             }
         }
 
-        for (ArrayList<Cave> path : result) {
-            path.add(currentCave);
+        for (ArrayDeque<Cave> path : result) {
+            path.addFirst(currentCave);
         }
 
         return result;
