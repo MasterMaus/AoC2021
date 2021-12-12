@@ -36,8 +36,6 @@ public class Day3 {
                 epsilonStr += "0";
             }
         }
-        System.out.println(gammaStr);
-        System.out.println(epsilonStr);
 
         int gamma = Integer.parseInt(gammaStr, 2);
         int epsilon = Integer.parseInt(epsilonStr, 2);
