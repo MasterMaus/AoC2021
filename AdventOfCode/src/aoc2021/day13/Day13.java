@@ -5,7 +5,6 @@ import aoc2021.utilities.InputLoader;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Day13 {
 
@@ -46,7 +45,7 @@ public class Day13 {
             g = fold(g,foldInstruction);
         }
 
-        System.out.println(g.toAsciiImage());
+        System.out.println(g.toImage());
     }
 
     private static Grid fold(Grid grid, String foldInstruction) {
