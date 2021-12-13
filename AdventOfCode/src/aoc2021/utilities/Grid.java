@@ -140,11 +140,11 @@ public class Grid {
         for (int y = 0; y<height; y++) {
             for(int x = 0; x<length; x++) {
                 if (grid[pointToId(x,y)] == 0) {
-                    res = res + "░";
+                    res = res + "░░";
                 } else if (grid[pointToId(x,y)] == 1) {
-                    res = res + "█";
+                    res = res + "██";
                 } else {
-                    res = res + "?";
+                    res = res + "??";
                 }
                 //res = res + grid[pointToId(x,y)];
             }
