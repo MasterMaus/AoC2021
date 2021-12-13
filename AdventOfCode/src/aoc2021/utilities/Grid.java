@@ -75,6 +75,16 @@ public class Grid {
         return false;
     }
 
+    public ArrayList<Integer> getPositionsWithValue(int val) {
+        ArrayList<Integer> res = new ArrayList<>();
+        for(int i=0; i<grid.length; i++) {
+            if (grid[i]==val) {
+                res.add(i);
+            }
+        }
+        return res;
+    }
+
     public ArrayList<Integer> getNeighbors(int x, int y) {
         ArrayList<Integer> res = new ArrayList<>();
         res.add(pointToId(x, y-1));
@@ -97,6 +107,12 @@ public class Grid {
         return getNeighbors(x,y);
     }
 
+    public int[] idToPos(int id) {
+        int x = id % length;
+        int y = id / length; //integer division becomes floor
+        return new int[]{x,y};
+    }
+
     public int count(int value) {
         int res = 0;
         for (int val : grid) {
@@ -113,6 +129,24 @@ public class Grid {
         for (int y = 0; y<height; y++) {
             for(int x = 0; x<length; x++) {
                 res = res + grid[pointToId(x,y)];
+            }
+            res = res + "\n";
+        }
+        return res;
+    }
+
+    public String toAsciiImage() {
+        String res = "";
+        for (int y = 0; y<height; y++) {
+            for(int x = 0; x<length; x++) {
+                if (grid[pointToId(x,y)] == 0) {
+                    res = res + ".";
+                } else if (grid[pointToId(x,y)] == 1) {
+                    res = res + "#";
+                } else {
+                    res = res + "?";
+                }
+                //res = res + grid[pointToId(x,y)];
             }
             res = res + "\n";
         }

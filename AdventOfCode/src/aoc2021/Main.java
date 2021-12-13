@@ -12,8 +12,8 @@ package aoc2021;
 //import aoc2021.day9.Day9;
 //import aoc2021.day10.Day10;
 //import aoc2021.day11.Day11;
-import aoc2021.day12.Day12;
-//import aoc2021.day13.Day13;
+//import aoc2021.day12.Day12;
+import aoc2021.day13.Day13;
 //import aoc2021.day14.Day14;
 //import aoc2021.day15.Day15;
 //import aoc2021.day16.Day16;
@@ -73,12 +73,12 @@ public class Main {
 //        System.out.println("solution has been solved in " + (System.currentTimeMillis() - start) + "ms \n");
 //
 //        start = System.currentTimeMillis();
-        Day12.run(); //run day12
-        System.out.println("solution has been solved in " + (System.currentTimeMillis() - start) + "ms \n");
+//        Day12.run(); //run day12
+//        System.out.println("solution has been solved in " + (System.currentTimeMillis() - start) + "ms \n");
 //
 //        start = System.currentTimeMillis();
-//        Day13.run(); //run day13
-//        System.out.println("solution has been solved in " + (System.currentTimeMillis() - start) + "ms \n");
+        Day13.run(); //run day13
+        System.out.println("solution has been solved in " + (System.currentTimeMillis() - start) + "ms \n");
 //
 //        start = System.currentTimeMillis();
 //        Day14.run(); //run day14
