@@ -17,7 +17,7 @@ public class Day13 {
         //ArrayList<Integer> input = InputLoader.toIntegerList("input/day13.txt");
         ArrayList<String> input = InputLoader.toStringList("input/day13.txt");
 
-        Grid g = new Grid(1309,895);
+        Grid g = new Grid(2000,1000);
         ArrayDeque<String> foldInstructions = new ArrayDeque<>();
 
         int max = 0;
@@ -44,7 +44,6 @@ public class Day13 {
             foldInstruction = foldInstructions.removeFirst();
             g = fold(g,foldInstruction);
         }
-
         System.out.println(g.toImage());
     }
 
