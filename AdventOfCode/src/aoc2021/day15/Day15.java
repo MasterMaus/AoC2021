@@ -9,66 +9,21 @@ public class Day15 {
 
     public static void run() {
 
-
-        System.out.println("Solutions day 15:");
-        int res1 = part1();
-        int res2 = part2();
-
-
-        System.out.println("part 1: " + res1);
-        System.out.println("part 2: " + res2);
-    }
-
-    private static int part1() {
         ArrayList<String> input = InputLoader.toStringList("input/day15.txt");
 
         int height = input.size();
         int length = input.get(0).length();
-        Grid dangerMap = new Grid(length, height);
-        TreeMap<Integer, Node> idToNode = new TreeMap<>();
 
-        for (int y = 0; y<input.size(); y++) {
-            String line = input.get(y);
-            for (int x = 0; x<line.length(); x++) {
-                dangerMap.set(x, y, Integer.parseInt(line.substring(x,x+1)));
-            }
-        }
-
-        for (int id = 0; id<dangerMap.size(); id++) {
-            Node currentNode = idToNode.get(id);
-            if (currentNode == null) { // ensure that node exists, if not create one and add to map
-                currentNode = new Node(id);
-                idToNode.put(id, currentNode);
-            }
-            for (int neighborID : dangerMap.getOrthogonalNeighbors(id)) { // ensure that node exists, if not create one and add to map
-                Node neighborNode = idToNode.get(neighborID);
-                if (neighborNode == null) {
-                    neighborNode = new Node(neighborID);
-                    idToNode.put(neighborID, neighborNode);
-                }
-                neighborNode.addVertex(currentNode, dangerMap.get(id)); //Add vertex from neighbor to current node, with distance of the danger in currentNode
-            }
-        }
-
-
-        return computeDijkstra(idToNode.get(0), idToNode.get(dangerMap.size()-1));
-    }
-
-    private static int part2() {
-        ArrayList<String> input = InputLoader.toStringList("input/day15.txt");
-
-        int height = input.size();
-        int length = input.get(0).length();
-        Grid dangerMap = new Grid(length*5, height*5);
-        TreeMap<Integer, Node> idToNode = new TreeMap<>();
-
+        Grid dangerMap1 = new Grid(length, height);
+        Grid dangerMap2 = new Grid(length*5, height*5);
 
         for (int y = 0; y<input.size(); y++) {
             String line = input.get(y);
             for (int x = 0; x<line.length(); x++) {
                 int val = Integer.parseInt(line.substring(x,x+1));
+                dangerMap1.set(x, y, val);
                 for (int i = 0; i<5; i++) {
-                    dangerMap.set(x + (length*i), y, val);
+                    dangerMap2.set(x + (length*i), y, val); //fill the map for part 2, but then times
                     val++;
                     if (val == 10) {
                         val = 1;
@@ -77,37 +32,46 @@ public class Day15 {
             }
         }
 
+        // copy the existing dangermap 5 times below, and add 1 every time. its for part 2
         for(int y = length; y < height*5; y++) {
             for (int x = 0; x < length*5; x++) {
-                int val = dangerMap.get(x,y-height);
-                val ++;
+                int val = dangerMap2.get(x,y-height);
+                val++;
                 if (val == 10) {
                     val = 1;
                 }
-                dangerMap.set(x,y,val);
+                dangerMap2.set(x,y,val);
             }
         }
+        TreeMap<Integer, Node> idToNode1 = getNodeMap(dangerMap1); //part1
+        TreeMap<Integer, Node> idToNode2 = getNodeMap(dangerMap2); //part1
 
-        //System.out.println(dangerMap.toString());
+
+        System.out.println("Solutions day 15:");
+        System.out.println("part 1: " + computeDijkstra(idToNode1.get(0), idToNode1.get(dangerMap1.size()-1)));
+        System.out.println("part 2: " + computeDijkstra(idToNode2.get(0), idToNode2.get(dangerMap2.size()-1)));
+    }
+
+    private static TreeMap<Integer, Node> getNodeMap(Grid dangerMap) {
+
+        TreeMap<Integer, Node> res = new TreeMap<>();
 
         for (int id = 0; id<dangerMap.size(); id++) {
-            Node currentNode = idToNode.get(id);
+            Node currentNode = res.get(id);
             if (currentNode == null) { // ensure that node exists, if not create one and add to map
                 currentNode = new Node(id);
-                idToNode.put(id, currentNode);
+                res.put(id, currentNode);
             }
             for (int neighborID : dangerMap.getOrthogonalNeighbors(id)) { // ensure that node exists, if not create one and add to map
-                Node neighborNode = idToNode.get(neighborID);
+                Node neighborNode = res.get(neighborID);
                 if (neighborNode == null) {
                     neighborNode = new Node(neighborID);
-                    idToNode.put(neighborID, neighborNode);
+                    res.put(neighborID, neighborNode);
                 }
                 neighborNode.addVertex(currentNode, dangerMap.get(id)); //Add vertex from neighbor to current node, with distance of the danger in currentNode
             }
         }
-
-
-        return computeDijkstra(idToNode.get(0), idToNode.get(dangerMap.size()-1));
+        return res;
     }
 
 
