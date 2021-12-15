@@ -107,6 +107,24 @@ public class Grid {
         return getNeighbors(x,y);
     }
 
+    public ArrayList<Integer> getOrthogonalNeighbors(int x, int y) {
+        ArrayList<Integer> res = new ArrayList<>();
+        res.add(pointToId(x, y-1));
+        res.add(pointToId(x+1, y));
+        res.add(pointToId(x, y+1));
+        res.add(pointToId(x-1, y));
+        while(res.remove(Integer.valueOf(-1))) {
+            // keep removing values of -1
+        }
+        return res;
+    }
+
+    public ArrayList<Integer> getOrthogonalNeighbors(int id) {
+        int x = id % length;
+        int y = id / length; //integer division becomes floor
+        return getOrthogonalNeighbors(x,y);
+    }
+
     public int[] idToPos(int id) {
         int x = id % length;
         int y = id / length; //integer division becomes floor
