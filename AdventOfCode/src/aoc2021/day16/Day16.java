@@ -2,68 +2,93 @@ package aoc2021.day16;
 
 import aoc2021.utilities.InputLoader;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 public class Day16 {
 
     public static void run() {
-        int res1 = 0;
-        int res2 = 0;
 
-        System.out.println("Solutions day x:");
+        System.out.println("Solutions day 16:");
 
-        ArrayList<Packet> packets = new ArrayList<>();
+        Packet masterPacket = new Packet(-1,-1);
 
-        String input = InputLoader.asString("input/test.txt", "");
+        String inputHex = InputLoader.asString("input/day16.txt", "");
+        String inputBin = (new BigInteger(inputHex, 16)).toString(2);
 
-        while (!input.isEmpty()) {
-            int readingPos = 1; //Start looking for "real data" at the second byte in the string
-            //Parse version and type
-            //always read the first 2 bytes in string
-            int versionType = Integer.parseInt(input.substring(0,2),16);
-            int version = (versionType & 0b11100000) >> 5; // The first 3 bits of the 8 bits versionType represents the version
-            int typeID = (versionType & 0b00011100) >> 2; // The next 3 bits of the 8 bits versionType represents the typeID
+        if (inputBin.length() % 8 != 0) { // Add leading zeroes that get lost in conversion
+            inputBin = "0" + inputBin;
+        }
 
-            res1 += version;
+        while(!inputBin.isEmpty()) {
+            int inputPointer = 0;
 
-            if (typeID == 4) { //typeID == 4 --> literal
-                int signalbit = 1; // starts at 1, decrements with 1. always mod 4.
-                int group = Integer.parseInt(input.substring(readingPos, readingPos+2),16);
-                readingPos ++;
-                while(hasNextGroup(group, signalbit)) {
-                    signalbit --;
-                    if (signalbit < 0) {
-                        signalbit = 3;
-                    }
+            inputPointer += addPacket(masterPacket, inputBin);
 
-                    group = Integer.parseInt(input.substring(readingPos, readingPos+2),16);
-                    readingPos ++;
-                    // Do stuff to actually read the group
+            while (inputPointer % 8 != 0) {
+                if(inputBin.charAt(inputPointer) != '0') {
+                    System.out.println("Something went wrong oops!");
                 }
-                // Read the last group.
-                System.out.println(input.substring(0,readingPos+1));
-                input = input.substring(readingPos+1); //Remove the entire packet from input. read next.
-                } else {
-                //This packet will be an operator
+                inputPointer++;
+            }
+            inputBin = inputBin.substring(inputPointer); //Remove packet from input
+        }
+
+
+
+        System.out.println("part 1: " + masterPacket.getSummedVersion());
+        masterPacket.getSubPackets().get(0).calculate();
+        System.out.println("part 2: " + masterPacket.getSubPackets().get(0).getLiteralValue());
+    }
+
+    private static int createLiteral(Packet masterPacket, int version, String input) {
+        int pointer = 0;
+        String valueBin = "";
+        while (input.charAt(pointer) == '1') {
+            valueBin += input.substring(pointer +1, pointer + 5);
+            pointer += 5;
+        }
+        valueBin = valueBin + input.substring(pointer+1, pointer +5);
+        pointer += 5;
+
+        Packet literal = new Packet(version, Long.parseLong(valueBin,2));
+        masterPacket.addPacket(literal);
+        return pointer;
+    }
+
+    private static int addPacket(Packet masterPacket, String inputBin) {
+        int pointer = 0;
+        int version = Integer.parseInt(inputBin.substring(pointer, pointer +=3),2);
+        int type = Integer.parseInt(inputBin.substring(pointer, pointer += 3),2);
+
+        if (type == 4) {
+            pointer += createLiteral(masterPacket, version,inputBin.substring(pointer));
+        } else {
+            // if flag is true, length is packetlength. if flag is false, length is bitlength
+            char flag = inputBin.charAt(pointer++);
+            //Create new packet and add to masterPacket. depending on flag, add subpackets differently
+            Packet packet = new Packet(version, type);
+            masterPacket.addPacket(packet);
+            if (flag == '1') {
+                int packetSize = Integer.parseInt(inputBin.substring(pointer, pointer += 11),2);
+                for (int i = 0; i < packetSize; i++) {
+                    pointer += addPacket(packet, inputBin.substring(pointer));
+                }
+            } else {
+                int stringSize = Integer.parseInt(inputBin.substring(pointer, pointer +=15),2);
+                int counter = 0;
+                while (counter < stringSize) {
+                    counter += addPacket(packet, inputBin.substring(pointer + counter));
+                }
+
+                pointer += counter;
             }
         }
 
-        System.out.println(input);
-
-
-
-        System.out.println("part 1: " + res1);
-        System.out.println("part 2: " + res2);
+        return pointer;
     }
 
-    /**
-     * determines if there is going to be a next group
-     * @param group 8 bit integer number
-     * @param i number between 0 and 3. represents what bit in the second byte is the signal bit (3210 xxxx)
-     * @return true if the signalbit is 1, false if the signalbit is 0
-     */
-    private static boolean hasNextGroup(int group, int i) {
-        int res = group >> i+4;
-        return (res & 0b1) == 1;
-    }
+
+
+
 }
