@@ -10,6 +10,7 @@ package aoc2021;
 //import aoc2021.day7.Day7;
 //import aoc2021.day8.Day8;
 //import aoc2021.day9.Day9;
+//import aoc2021.day9.Day9Improved;
 //import aoc2021.day10.Day10;
 //import aoc2021.day11.Day11;
 //import aoc2021.day12.Day12;
@@ -31,6 +32,7 @@ public class Main {
 
     public static void main(String[] args) {
         long start = System.currentTimeMillis();
+        long total = start;
 //        Day1.run(); //run day1
 //        System.out.println("solution has been solved in " + (System.currentTimeMillis() - start) + "ms \n");
 //
@@ -60,7 +62,11 @@ public class Main {
 //        System.out.println("solution has been solved in " + (System.currentTimeMillis() - start) + "ms \n");
 //
 //        start = System.currentTimeMillis();
-//        Day9.run(); //run day8
+//        Day8.run(); //run day8
+//        System.out.println("solution has been solved in " + (System.currentTimeMillis() - start) + "ms \n");
+//
+//        start = System.currentTimeMillis();
+//        Day9.run(); //run day9
 //        System.out.println("solution has been solved in " + (System.currentTimeMillis() - start) + "ms \n");
 //
 //        start = System.currentTimeMillis();
@@ -90,8 +96,8 @@ public class Main {
 //        start = System.currentTimeMillis();
 //        Day16.run(); //run day16
 //        System.out.println("solution has been solved in " + (System.currentTimeMillis() - start) + "ms \n");
-//
-//        start = System.currentTimeMillis();
+
+        start = System.currentTimeMillis();
         Day17.run(); //run day17
         System.out.println("solution has been solved in " + (System.currentTimeMillis() - start) + "ms \n");
 //
@@ -125,6 +131,8 @@ public class Main {
 //
 //        start = System.currentTimeMillis();
 //        Day25.run(); //run day25
-//        System.out.println("solution has been solved in " + (System.currentTimeMillis() - start) + "ms \n");
+        long end = System.currentTimeMillis();
+//        System.out.println("solution has been solved in " + (end - start) + "ms \n");
+        System.out.println("entire year has been solved in " + (end - total) + "ms \n");
     }
 }

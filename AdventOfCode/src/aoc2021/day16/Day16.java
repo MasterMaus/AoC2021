@@ -3,7 +3,6 @@ package aoc2021.day16;
 import aoc2021.utilities.InputLoader;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 
 public class Day16 {
 

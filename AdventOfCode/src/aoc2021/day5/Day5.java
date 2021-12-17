@@ -9,7 +9,7 @@ public class Day5 {
     public static void run() {
         int res = 0;
 
-        System.out.println("Solutions day x:");
+        System.out.println("Solutions day 5:");
 
         ArrayList<String> input = InputLoader.toStringList("input/day5.txt");
         int grid[][] = new int[1000][1000];

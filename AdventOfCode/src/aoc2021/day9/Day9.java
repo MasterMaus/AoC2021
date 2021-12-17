@@ -35,8 +35,6 @@ public class Day9 {
             }
         }
 
-        System.out.println(bassins.size());
-
         Collection<Integer> bassinSizes = bassins.values();
         int max1 = Collections.max(bassinSizes);
         bassinSizes.remove(max1);

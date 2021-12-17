@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 public class Day9Improved {
 
+    //TODO Improve day9 because unclean code
+
     public static void run() {
         int res = 0;
 

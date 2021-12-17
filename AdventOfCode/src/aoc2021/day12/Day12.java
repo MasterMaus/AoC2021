@@ -60,19 +60,12 @@ public class Day12 {
             }
         }
 
-//        for (ArrayDeque<Cave> path : possiblePathsV2) {
-//            System.out.println(path);
-//        }
-
-        System.out.println(nodes.size());
-
         int duplicates = nodes.size() - 3; //start and end node do not count towards "exceptions". We have to keep 1 of the duplicates
         System.out.println("part 1: " + possiblePaths.size());
         System.out.println("part 2: " + (possiblePathsV2.size() - (possiblePaths.size()*duplicates)));
     }
 
     private static HashSet<ArrayDeque<Cave>> findPaths(Cave currentCave, Cave endCave, HashSet<Cave> visited) {
-        //System.out.println("Currently exploring cave: " + currentCave.getID());
 
         if (visited == null) { //This is the very first time that findPaths is called. Need to create a new visited set
             visited = new HashSet<>();
